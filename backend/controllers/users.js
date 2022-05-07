@@ -1,6 +1,7 @@
 
 const User = require('../models').users;
 
+
 // suppression publication
 exports.getProfile = (req, res) => {
   // creation d'objet publication 

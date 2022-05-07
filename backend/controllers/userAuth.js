@@ -1,5 +1,7 @@
-const User = require('../models/Users');
+const User = require('../models').users;
 
+//package token
+const jwt = require('jsonwebtoken');
 const bcrypt= require('bcrypt')
 
 //fonction signup
