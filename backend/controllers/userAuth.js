@@ -10,10 +10,10 @@ exports.signup = (req, res) => {
     bcrypt.hash(req.body.password, 10)              
       .then(hash => {
         const user = new User({
-          lastname:req.body.lastname,
-          firstname:req.body.firstname,
+          lastName:req.body.lastname,
+          firstName:req.body.firstname,
           email: req.body.email,
-          password: hash                            
+          password: req.body.password                            
         });
         // enregistrer l'user dans la BDD
         user.save()

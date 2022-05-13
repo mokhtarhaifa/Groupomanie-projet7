@@ -14,7 +14,7 @@ const normalizePort = val => {
 };
 
 // normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to api application." });

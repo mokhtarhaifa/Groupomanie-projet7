@@ -1,0 +1,32 @@
+/************************ NAVBAR *********************/
+
+.logo{
+    width: 250px
+}
+.colorbande{
+    background-color: #112442;
+    
+}
+nav a.nav-link{
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    color: white !important;
+}
+
+nav ul li{
+    text-transform: uppercase;
+    
+}
+
+.btn {
+    color: white !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-color:white !important; 
+}
+.btnNavbar:hover{
+    color:  #112442!important;
+    background-color: white !important;
+    border-color:white !important;
+}
