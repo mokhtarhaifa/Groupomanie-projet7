@@ -12,13 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.publications.belongsTo(models.users,{
         foreignKey: {
-          allowNull: false
+          allowNull: true
         }, onDelete: 'CASCADE',
       }),
       models.publications.hasMany(models.comments, {
         foreignKey: {
           allowNull: false
         }, onDelete: 'CASCADE',
+        hooks:true
       })
     }
   }
@@ -31,5 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'publications',
   });
+
+  
   return publications;
 };

@@ -16,7 +16,7 @@ exports.createPublication = (req, res) => {
   const newPublication ={
     userId : req.body.userId,
     content: req.body.content,
-    imgUrl: imgPublication
+    imgUrl: req.body.imgUrl
   }
     
   Publications.create(newPublication)
@@ -33,7 +33,8 @@ exports.getAllPublications= (req, res) => {
           { model: Comments, include: [
             { model: Users, attributes: ['id', 'firstName', 'lastName', 'imgUrl'] }
           ]}
-      ]
+      ],
+      order: [["id", "DESC"]],
   })
     .then(
       (publications) => {

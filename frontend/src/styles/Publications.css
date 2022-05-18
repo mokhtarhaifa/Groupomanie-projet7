@@ -154,11 +154,12 @@
     height: 32px;
   }
   .fb-clone-card .fb-card-comments .comment-input-holder .comment-input {
-    background-color: #f2f3f5;
+    background-color: #ccd0d5;
     border: 1px solid #ccd0d5;
-    border-radius: 16px;
+    border-radius: 13px;
     display: flex;
     justify-content: flex-end;
+    width: 90%;
   }
   .fb-clone-card .fb-card-comments .comment-input-holder .comment-input .comment-box {
     font-size: 13px;
@@ -211,3 +212,27 @@
   .imgPublication{
       margin-top:20px;
   }
+
+  .h7 {
+    font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}

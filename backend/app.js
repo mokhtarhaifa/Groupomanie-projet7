@@ -9,9 +9,10 @@ const app = express();
 
 // connexion bd
 const { Sequelize } = require('sequelize');
-const sequelize = new Sequelize('groupomania', 'root', '', {
+const sequelize = new Sequelize('groupomania', 'root','', {
   host: 'localhost',
-  dialect:  'mysql'
+  dialect: 'mysql',
+  
 });
 // test connexion
 try {

@@ -3,7 +3,6 @@ const Comments = require('../models').comments;
 // récupération du publication
 
 exports.createComments = (req, res) => {
-  // Publication avec image
   
   // creation d'objet publication 
   const newComment ={
