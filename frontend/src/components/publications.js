@@ -43,20 +43,19 @@ const Publications = () => {
             imgUrl: "imgPublication6696.jpg"
           }
 
-		//   const creatPost1 ={
-		// 	content: nameRef.current.value,
-		// 	imgUrl: "imgPublication6696.jpg",
-		// 	userId: 1,
-		// 	user: {
-		// 		id: 1,
-		// 		firstName: "haifa",
-		// 		lastName: "mokhtar",
-		// 		imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJVH0h1OwJsUSQVr-yAC0L9MzciamkLT1jPh1yDJVJMMbGG4z86qgTeKywIPNGZCAuGw0&usqp=CAU"
-		// 	},
-		// 	"comments": []
-		// };
-
-		setPublications(currentPublication => [...currentPublication, creatPost])
+		
+		  setPublications(currentPublication => [
+			  ...currentPublication,
+			  {
+				  ...creatPost,
+				  user: {
+					  id: 1,
+					  firstName: "haifa",
+					  lastName: "mokhtar",
+					  imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJVH0h1OwJsUSQVr-yAC0L9MzciamkLT1jPh1yDJVJMMbGG4z86qgTeKywIPNGZCAuGw0&usqp=CAU"
+				  }
+			  }
+		  ])
 
 			console.log(creatPost)
 	        axios.post("http://localhost:3001/publication",  creatPost)
@@ -182,7 +181,7 @@ const Publications = () => {
                                 </div>
                             </div>
                         </div>
-                        {pub.comments.map(comment=>
+                        {pub.comments?.map(comment=>
                         <div className="fb-card-comments">
                             <div className="comment-input-holder">
                                 <div className="user-thumb">
