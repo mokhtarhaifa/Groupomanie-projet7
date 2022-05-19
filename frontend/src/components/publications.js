@@ -5,6 +5,8 @@ import '../styles/Publications.css'
 const Publications = () => {
     const [publications, setPublications]=useState([])
     const nameRef = React.useRef();
+    const fileInput = React.createRef();
+    const [imgUrl, setImgUrl]=useState([])
 
 	const updatepage=() =>{
 		axios.get("http://localhost:3001/publication")
@@ -17,7 +19,7 @@ const Publications = () => {
      useEffect(() => {
         {updatepage()}
     },[])
-
+    
     const handelDelete = (id) => {
         // creer une copie de tableaux des publications si il ya une erreur la publication sera recupérer
         const originalPub = [...publications];
@@ -32,18 +34,46 @@ const Publications = () => {
             console.log(error.response);
         })
 	}
-
+    console.log("imgUrlhjhjkhj " +imgUrl == "")
 	const sharePosts = () => {
-		const originalPub = [...publications];
-		console.log("afiichage :" +publications);
-		console.log('name:', nameRef.current.value);
+        
+        if(imgUrl && imgUrl.image && imgUrl.image.length<1){
+            const creatPost ={
+                userId : 1,
+                content: nameRef.current.value,
+            }
+            setPublications(currentPublication => [
+                ...currentPublication,
+                {
+                    ...creatPost,
+                    user: {
+                        id: 1,
+                        firstName: "haifa",
+                        lastName: "mokhtar",
+                        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJVH0h1OwJsUSQVr-yAC0L9MzciamkLT1jPh1yDJVJMMbGG4z86qgTeKywIPNGZCAuGw0&usqp=CAU"
+                    }
+                }
+            ])
+            axios.post("http://localhost:3001/publication",  creatPost)
+                .then(res => {
+                    nameRef.current.value=""
+                    console.log(res.data);
+                })
+                .catch(error => {
+                    console.log(error.response);
+	            })
+            
+        }
+
+        setImgUrl({
+            image: "1"
+          });
         const creatPost ={
             userId : 1,
             content: nameRef.current.value,
-            imgUrl: "imgPublication6696.jpg"
+            imgUrl: imgUrl.image
           }
-
-		
+          console.log(__dirname)
 		  setPublications(currentPublication => [
 			  ...currentPublication,
 			  {
@@ -61,35 +91,25 @@ const Publications = () => {
 	        axios.post("http://localhost:3001/publication",  creatPost)
 	      .then(res => {
 			nameRef.current.value=""
+            
 	        console.log(res.data);
 	      })
 		  .catch(error => {
-	        console.log(error.response);
+	        console.log(error);
 	    })
   }
+  const onImageChange = event => {
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      
+      setImgUrl({
+        image: URL.createObjectURL(img)
+      });
+    }
+  };
 
-
-//     const sharePosts = () => {
-//     console.log('name:', nameRef.current.value);
-//         const creatPost ={
-//             userId : 1,
-//             content: nameRef.current.value,
-//             imgUrl: ""
-//           }
-// 				console.log(creatPost)
-// 	        axios.post("http://localhost:3001/publication",  creatPost )
-// 	      .then(res => {
-// 			{updatepage()}
-// 	        console.log(res.data);
-// 	      }).catch(error => {
-// 	        console.log(error.response);
-// 	    })
-//   }
-
-
-    
-
-
+  
+  
     return (
         <div class="container-fluid my-5">
 		<div class="row">
@@ -117,7 +137,7 @@ const Publications = () => {
                         </div>
                         <div >
                             <span class="text-start"><button type="button" class="btn btn-primary" onClick={() => sharePosts()} >share</button></span>
-                            <span class="text-end"><input type="file"/></span>
+                            <span class="text-end"><input type="file" ref={fileInput} onChange={onImageChange}/></span>
                         </div>
                     </div>
                 </section>
@@ -129,7 +149,7 @@ const Publications = () => {
                             <div className="fb-card-header">
                                 <div className="user-post-info">
                                     <div className="user-thumb">
-                                        <img src={pub.user.imgUrl} className="img-responsive"  alt="test"/>
+                                        <img src={pub.user.imgUrl} className="img-responsive"  alt="test2"/>
                                     </div>
                                     <div className="user-information">
                                         <p>{pub.user.firstName} {pub.user.lastName} </p>
@@ -152,7 +172,9 @@ const Publications = () => {
                 
                             <div className="fb-card-body simple-text-card">
                                 <p>{pub.content}</p>
-                                <img src={pub.imgUrl} className="img-responsive imgPublication"alt="test" />
+                                <img src={pub.imgUrl} className="img-responsive imgPublication"alt="test1" />
+                                
+                                
                             </div>
                 
                         </div>
@@ -174,7 +196,7 @@ const Publications = () => {
                         <div className="fb-card-comments">
                             <div className="comment-input-holder">
                                 <div className="user-thumb">
-                                    <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" className="img-responsive" alt="test"/>
+                                    <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" className="img-responsive" alt="test4"/>
                                 </div>
                                 <div>
                                     <input type='text' placeholder='écrire un commentaire' className="comment-input"/>
@@ -185,7 +207,7 @@ const Publications = () => {
                         <div className="fb-card-comments">
                             <div className="comment-input-holder">
                                 <div className="user-thumb">
-                                    <img src={comment.user.imgUrl} className="img-responsive" alt="test"/>
+                                    <img src={comment.user.imgUrl} className="img-responsive" alt="test3"/>
                                 </div>
                                 <div>
                                     <p className="text-left">{comment.content} </p> 

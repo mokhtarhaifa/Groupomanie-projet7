@@ -9,9 +9,15 @@ const Comments = require('../models').comments;
 exports.createPublication = (req, res) => {
   // Publication avec image
   let imgPublication;
+  console.log("re " +req.body.imgUrl)
+  console.log("re " +req.file)
   if(req.file){
     imgPublication =`${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
   }
+
+  console.log("imgpub " +imgPublication)
+
+
   // creation d'objet publication 
   const newPublication ={
     userId : req.body.userId,
