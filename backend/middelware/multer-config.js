@@ -1,11 +1,10 @@
-const multer = require('multer');           //importation du package de gestion des fichiers
+const multer = require('multer');
 
-
-//les differents types d'image qui sera ajouter
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'image/gif': 'gif',
 };
 
 //configuration de multer

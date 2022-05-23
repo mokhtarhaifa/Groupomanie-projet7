@@ -8,27 +8,26 @@ const Comments = require('../models').comments;
 //  création de publication
 exports.createPublication = (req, res) => {
   // Publication avec image
-  let imgPublication;
-  console.log("re " +req.body.imgUrl)
-  console.log("re " +req.file)
-  if(req.file){
-    imgPublication =`${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  }
-
-  console.log("imgpub " +imgPublication)
-
-
-  // creation d'objet publication 
-  const newPublication ={
-    userId : req.body.userId,
-    content: req.body.content,
-    imgUrl: req.body.imgUrl
-  }
-    
-  Publications.create(newPublication)
-    .then(Publication => res.status(201).json( Publication ))
-    .catch(error => res.status(400).json({ error }));
+Publications.create({
+  content: req.body.content,
+  imgUrl: req.file
+    ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    : null,
+    userId: req.body.userId,
+})
+  .then((response) =>
+  
+  res.status(201).send({
+     data: response.dataValues
+  })
+   )
+  .catch((error) => res.status(400).json({ error }));
 };
+
+
+
+
+
 // récupération du publication
 exports.getAllPublications= (req, res) => {
   

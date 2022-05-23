@@ -9,6 +9,7 @@ router.get('/',publication.getAllPublications);
 router.post('/',multer,publication.createPublication);
 
 
+
 router.put('/:id',multer,publication.modifyPublication);
 router.delete('/:id',multer,publication.deletePublication);
 router.put('/likedislike/:id',publication.likeDislikePublication);

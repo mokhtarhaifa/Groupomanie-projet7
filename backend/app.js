@@ -7,6 +7,8 @@ const helmet = require("helmet");
 
 const app = express();
 
+const publicationRoutes = require('./routes/publication');
+
 // connexion bd
 const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('groupomania', 'root','', {
@@ -36,9 +38,9 @@ try {
  app.use(helmet({
    crossOriginResourcePolicy: false,
  }));
-
- app.use('/images', express.static(path.join(__dirname, 'images')));
- app.use("/publication", require('./routes/publication')) 
+ 
+ app.use('/images', express.static(path.join(__dirname, '/images')));
+ app.use("/publication", publicationRoutes) 
  app.use("/comment", require('./routes/comment')) 
  app.use("/user", require('./routes/user')) 
 

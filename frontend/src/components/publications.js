@@ -5,8 +5,9 @@ import '../styles/Publications.css'
 const Publications = () => {
     const [publications, setPublications]=useState([])
     const nameRef = React.useRef();
-    const fileInput = React.createRef();
-    const [imgUrl, setImgUrl]=useState([])
+    const userId = 1;
+    const [content, setContent] = useState('');
+    const [imgUrl, setimgUrl] = useState(null);
 
 	const updatepage=() =>{
 		axios.get("http://localhost:3001/publication")
@@ -34,79 +35,26 @@ const Publications = () => {
             console.log(error.response);
         })
 	}
-    console.log("imgUrlhjhjkhj " +imgUrl == "")
+
+
 	const sharePosts = () => {
+        const formData = new FormData();
+        formData.append('content', content);
+        formData.append('imgUrl', imgUrl);
+        formData.append('userId', userId);
         
-        if(imgUrl && imgUrl.image && imgUrl.image.length<1){
-            const creatPost ={
-                userId : 1,
-                content: nameRef.current.value,
-            }
-            setPublications(currentPublication => [
-                ...currentPublication,
-                {
-                    ...creatPost,
-                    user: {
-                        id: 1,
-                        firstName: "haifa",
-                        lastName: "mokhtar",
-                        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJVH0h1OwJsUSQVr-yAC0L9MzciamkLT1jPh1yDJVJMMbGG4z86qgTeKywIPNGZCAuGw0&usqp=CAU"
-                    }
-                }
-            ])
-            axios.post("http://localhost:3001/publication",  creatPost)
-                .then(res => {
-                    nameRef.current.value=""
-                    console.log(res.data);
-                })
-                .catch(error => {
-                    console.log(error.response);
-	            })
+        axios
+        .post("http://localhost:3001/publication", formData)
+        .then(res => {
+            window.location.reload(false);
             
-        }
-
-        setImgUrl({
-            image: "1"
-          });
-        const creatPost ={
-            userId : 1,
-            content: nameRef.current.value,
-            imgUrl: imgUrl.image
-          }
-          console.log(__dirname)
-		  setPublications(currentPublication => [
-			  ...currentPublication,
-			  {
-				  ...creatPost,
-				  user: {
-					  id: 1,
-					  firstName: "haifa",
-					  lastName: "mokhtar",
-					  imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJVH0h1OwJsUSQVr-yAC0L9MzciamkLT1jPh1yDJVJMMbGG4z86qgTeKywIPNGZCAuGw0&usqp=CAU"
-				  }
-			  }
-		  ])
-
-			console.log(creatPost)
-	        axios.post("http://localhost:3001/publication",  creatPost)
-	      .then(res => {
-			nameRef.current.value=""
-            
-	        console.log(res.data);
+	        console.log(res);
 	      })
 		  .catch(error => {
 	        console.log(error);
 	    })
   }
-  const onImageChange = event => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      
-      setImgUrl({
-        image: URL.createObjectURL(img)
-      });
-    }
-  };
+  
 
   
   
@@ -137,7 +85,7 @@ const Publications = () => {
                         </div>
                         <div >
                             <span class="text-start"><button type="button" class="btn btn-primary" onClick={() => sharePosts()} >share</button></span>
-                            <span class="text-end"><input type="file" ref={fileInput} onChange={onImageChange}/></span>
+                            <span class="text-end"><input type="file" onChange={(e) => setimgUrl(e.target.files[0])}/></span>
                         </div>
                     </div>
                 </section>
@@ -199,7 +147,7 @@ const Publications = () => {
                                     <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" className="img-responsive" alt="test4"/>
                                 </div>
                                 <div>
-                                    <input type='text' placeholder='écrire un commentaire' className="comment-input"/>
+                                    <input type='text' placeholder='écrire un commentaire' className="comment-input" onChange={(e) => setContent(e.target.value)}/>
                                 </div>
                             </div>
                         </div>
