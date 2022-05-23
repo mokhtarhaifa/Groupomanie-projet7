@@ -12,7 +12,7 @@ Publications.create({
   content: req.body.content,
   imgUrl: req.file
     ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    : null,
+    : '',
     userId: req.body.userId,
 })
   .then((response) =>
@@ -21,7 +21,7 @@ Publications.create({
      data: response.dataValues
   })
    )
-  .catch((error) => res.status(400).json({ error }));
+  .catch((error) => res.status(400).json(error.message));
 };
 
 

@@ -40,13 +40,13 @@ const Publications = () => {
 	const sharePosts = () => {
         const formData = new FormData();
         formData.append('content', content);
-        formData.append('imgUrl', imgUrl);
+        imgUrl && formData.append('image', imgUrl);
         formData.append('userId', userId);
         
         axios
         .post("http://localhost:3001/publication", formData)
         .then(res => {
-            window.location.reload(false);
+            {updatepage()}
             
 	        console.log(res);
 	      })
@@ -78,7 +78,7 @@ const Publications = () => {
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div class="form-group">
-                                    <textarea id="name" ref={nameRef} class="form-control"  rows="3" placeholder="What are you thinking..." > </textarea>
+                                    <textarea id="name" ref={nameRef} class="form-control"  rows="3" placeholder="What are you thinking..." onChange={(e) => setContent(e.target.value)}> </textarea>
                                 </div>
 
                             </div>
@@ -120,7 +120,8 @@ const Publications = () => {
                 
                             <div className="fb-card-body simple-text-card">
                                 <p>{pub.content}</p>
-                                <img src={pub.imgUrl} className="img-responsive imgPublication"alt="test1" />
+                                {console.log("imgUrl" + imgUrl)}
+                                <img src={pub.imgUrl} className="img-responsive imgPublication" alt="test1" />
                                 
                                 
                             </div>
@@ -147,7 +148,7 @@ const Publications = () => {
                                     <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" className="img-responsive" alt="test4"/>
                                 </div>
                                 <div>
-                                    <input type='text' placeholder='écrire un commentaire' className="comment-input" onChange={(e) => setContent(e.target.value)}/>
+                                    <input type='text' placeholder='écrire un commentaire' className="comment-input" />
                                 </div>
                             </div>
                         </div>
