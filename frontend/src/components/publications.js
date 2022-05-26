@@ -78,7 +78,7 @@ const Publications = () => {
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div className="form-group">
-                                    <textarea id="name" ref={nameRef} className="form-control"  rows="3" value="What are you thinking..." onChange={(e) => setContent(e.target.value)}> </textarea>
+                                    <textarea id="name" ref={nameRef} className="form-control"  rows="3"  onChange={(e) => setContent(e.target.value)}> </textarea>
                                 </div>
 
                             </div>

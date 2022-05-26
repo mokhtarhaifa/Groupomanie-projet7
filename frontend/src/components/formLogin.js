@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React,{useState} from 'react'
 import '../styles/Login.css'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,Link} from 'react-router-dom';
 
 const FormLogin = () => {
 
@@ -29,16 +29,18 @@ const handelSubmit = async event =>{
     try{
         const token = await axios.post("http://localhost:3001/auth/login", credentials)
         // stocker le token en navigateur
-            .then(res => localStorage.setItem("authToken", res.data.token))
+            .then(res => [localStorage.setItem("authToken", res.data.token), localStorage.setItem("userid", res.data.userId)])
             
         // implementer le header par defaut pour toute requette avec le méme token 
             axios.defaults.headers["Authorization"] = "Bearer" + token;
             navigate('/homePage');
+            
     }
     catch (error){
         console.log(error.res)
         setError("email incorrecte")
     }
+
     
 }
 
@@ -61,11 +63,14 @@ const handelSubmit = async event =>{
 
                 <div className="form-group">
 
-                    <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Mot de passe" onChange={handelChange} value={credentials.password} required />
+                    <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Mot de passe" onChange={handelChange} value={credentials.password} autoComplete="off" required />
 
                 </div>
                 <button type="submit" className="btn btn-primary">Login</button>
-
+                <Link to ={
+                            "/"
+                }> 
+                S'inscrire </Link>
             </form>
         </div>
     </div>

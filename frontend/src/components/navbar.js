@@ -4,6 +4,16 @@ import '../styles/Navbar.css'
 
 
 const navbar = () => {
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        
+        localStorage.clear();
+        window.location.href = '/';
+    }
+
+
+
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark colorbande">
         <div className="container">
@@ -20,7 +30,7 @@ const navbar = () => {
                     </li>
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
-                    <button className="btn btn-outline-success btnNavbar my-2 my-sm-0" type="submit">Se déconnecter</button>
+                    <button className="btn btn-outline-success btnNavbar my-2 my-sm-0" type="submit" onClick={handleLogout}>Se déconnecter</button>
                 </form>
             </div>
         </div>

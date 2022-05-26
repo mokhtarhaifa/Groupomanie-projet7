@@ -1,9 +1,10 @@
 import axios from 'axios'
 import React,{useState} from 'react'
 import '../styles/Login.css'
+import { Link,useNavigate } from "react-router-dom";
 
 const FormSignup = () => {
-
+    let navigate = useNavigate();
     const [user, setUser]=useState({
         firstName:"",
         lastName:"",
@@ -39,6 +40,8 @@ const FormSignup = () => {
         console.log(error.res)
     }
         console.log(user);
+
+    navigate('/homePage');
     }
     
 
@@ -72,11 +75,14 @@ const FormSignup = () => {
 
                 <div className="form-group">
 
-                    <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Mot de passe" error={errors.password} value={user.password} onChange={handelChange}  />
+                    <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Mot de passe" error={errors.password} value={user.password} onChange={handelChange} autoComplete="off" />
 
                 </div>
                 <button type="submit" className="btn btn-primary">S'inscrire</button>
-                
+                <Link to ={
+                            "/Login"
+                }> 
+                j'ai déja un compte </Link>
             </form>
         </div>
     </div>

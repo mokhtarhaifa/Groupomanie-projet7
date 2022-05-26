@@ -11,8 +11,8 @@ exports.signup = (req, res) => {
     bcrypt.hash(req.body.password, 10)              
       .then(hash => {
         const user = new User({
-          lastName:req.body.lastname,
-          firstName:req.body.firstname,
+          lastName:req.body.lastName,
+          firstName:req.body.firstName,
           email: req.body.email,
           password: req.body.password                            
         });
@@ -64,7 +64,7 @@ exports.signup = (req, res) => {
             
             res.status(200).json({
               
-              userId: user._id,
+              userId: user.id,
               
               //creation de token 
               token: jwt.sign(              
