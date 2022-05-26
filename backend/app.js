@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const app = express();
 
 const publicationRoutes = require('./routes/publication');
+const userRoutes =require('./routes/userAuth');
 
 // connexion bd
 const { Sequelize } = require('sequelize');
@@ -38,7 +39,8 @@ try {
  app.use(helmet({
    crossOriginResourcePolicy: false,
  }));
- 
+
+ app.use('/auth', userRoutes);
  app.use('/images', express.static(path.join(__dirname, '/images')));
  app.use("/publication", publicationRoutes) 
  app.use("/comment", require('./routes/comment')) 
