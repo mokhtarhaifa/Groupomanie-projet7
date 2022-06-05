@@ -1,15 +1,16 @@
 import React from 'react'
 import logo from '../logo.png'
 import '../styles/Navbar.css'
+import { Link,useNavigate } from "react-router-dom";
 
 
-const navbar = () => {
-
+const Navbar = () => {
+    let navigate = useNavigate();
     const handleLogout = (event) => {
         event.preventDefault();
         
         localStorage.clear();
-        window.location.href = '/';
+        navigate('/login'); 
     }
 
 
@@ -17,16 +18,20 @@ const navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark colorbande">
         <div className="container">
-            <a className="navbar-brand" href="">
-                <img className="logo" src={logo} alt="gropomania"/>
-            </a>
+            <Link className ="logolink" to ={
+                            "/homePage"
+                }> 
+               <img className="logo" src={logo} alt="gropomania"/>  </Link> 
+            
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto">
                     <li className="nav-item active">
-                        <a className="nav-link" href="/#">Profil </a>
+                    <Link className="linkprofil" to ={
+                            "/profil"
+                            }> Profil  </Link>
                     </li>
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
@@ -38,4 +43,4 @@ const navbar = () => {
   )
 }
 
-export default navbar
+export default Navbar

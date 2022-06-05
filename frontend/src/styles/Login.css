@@ -1,11 +1,19 @@
 #LoginForm{ 
     background-image:url("../../public/img/imgbackground.jpg"); 
-    background-repeat:no-repeat; 
+    height: 1000px;
     background-position:center; 
     background-size:cover; 
     padding:10px; }
 
-.form-heading { color:#fff; font-size:23px;}
+.form-heading { color:#fff; font-size:23px;
+
+}
+.panel h1{ color:#FD2D01; 
+  font-size:30px;
+  margin:0 0 20px 0;
+  font-family: "Lato";
+  font-weight: bolder;
+  }
 .panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
 .login-form .form-control {
   background: #f7f7f7 none repeat scroll 0 0;
@@ -21,6 +29,7 @@
   margin: 10px auto 30px;
   max-width: 38%;
   padding: 50px 70px 70px 71px;
+  margin-top: 250px;
 }
 
 .login-form .form-group {
@@ -29,8 +38,8 @@
 .login-form{ text-align:center;}
 
 .login-form  .btn.btn-primary {
-  background: #ba4d55 none repeat scroll 0 0;
-  border-color: #ba4d55;
+  background: #FD2D01 none repeat scroll 0 0;
+  border-color: #FD2D01;
   color: #ffffff;
   font-size: 14px;
   width: 100%;
@@ -45,3 +54,10 @@
 }
 .back { text-align: left; margin-top:10px;}
 .back a {color: #444444; font-size: 13px;text-decoration: none;}
+
+.linkt{
+  color: #444444;
+  text-decoration: none;
+  font-weight:600;
+  margin-top: 150px;
+}

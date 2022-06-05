@@ -2,10 +2,8 @@
 const User = require('../models').users;
 
 
-// suppression publication
+//profil utulisateur
 exports.getProfile = (req, res) => {
-  // creation d'objet publication 
-  
   User.findOne(
     { where: { id: req.params.id } })
     .then(
@@ -21,6 +19,33 @@ exports.getProfile = (req, res) => {
       );
 };
 
+//modifier profil
+exports.updateProfile = (req, res) => {
+  const newinfo ={
+    firstName :req.body.firstName,
+    lastName :req.body.lastName,
+    email:req.body.email,
+    imgUrl: req.file? 
+  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.imgPath,
+  }
+  User.findOne(
+    { where: { id: req.params.id } })
+  .then(function (pub) {
+    return pub.update(newinfo);
+  }).then(function (pub) {
+      res.sendStatus(200);
+  })
+  .catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  )
+};
+
+
+//supprimer profil
 exports.deleteProfile = (req, res) => {
     
     User.findOne(

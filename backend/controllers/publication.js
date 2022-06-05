@@ -10,9 +10,8 @@ exports.createPublication = (req, res) => {
   // Publication avec image
 Publications.create({
   content: req.body.content,
-  imgUrl: req.file
-    ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    : '',
+  imgUrl: req.file? 
+  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: '',
     userId: req.body.userId,
 })
   .then((response) =>
@@ -55,15 +54,12 @@ exports.getAllPublications= (req, res) => {
 
 // modifier publication
 exports.modifyPublication = (req, res) => {
-  let imgPublication;
-  if(req.file){
-    imgPublication =`${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-  }
   // creation d'objet publication 
   const newPublication ={
     userId : req.body.userId,
     content: req.body.content,
-    imgUrl: req.body.imgUrl
+    imgUrl: req.file? 
+  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.imgPath,
   }
   Publications.findOne(
     { where: { id: req.params.id } })
@@ -99,4 +95,20 @@ exports.likeDislikePublication = (req, res) => {
   }).then(function (pub) {
       res.sendStatus(200);
   });
+};
+  exports.getOnePublications = (req, res) => {
+    
+    Publications.findOne(
+      { where: { id: req.params.id } })
+    .then(
+      (publications) => {
+        res.status(200).json(publications);
+      })
+    .catch(
+      (error) => {
+        res.status(400).json({
+          error: error
+        });
+      }
+    )
 };

@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.users.hasMany(models.publications, {
-        onDelete: "cascade",
-      }),
+        onDelete: "CASCADE",
+        hooks:true}),
       models.users.hasMany(models.comments, {
-        onDelete: "cascade",
-      });
+        onDelete: "CASCADE",
+        hooks:true});
     }
   }
   users.init({

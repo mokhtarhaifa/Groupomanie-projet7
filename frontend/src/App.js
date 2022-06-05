@@ -4,7 +4,7 @@ import "./App.css"
 import Acceuil from "./pages/Acceuil"
 import Login from "./pages/Login"
 import Signup from "./pages/Singup"
-
+import Profil from "./pages/userProfil"
 import {HashRouter, Routes, Route } from "react-router-dom"
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/" element={<Signup/>} />
             <Route path="/homePage" element={<Acceuil/>} />
+            <Route path="/profil" element={<Profil/>} />
         </Routes>
     </div>
     </HashRouter>

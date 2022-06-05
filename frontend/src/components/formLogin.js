@@ -29,7 +29,7 @@ const handelSubmit = async event =>{
     try{
         const token = await axios.post("http://localhost:3001/auth/login", credentials)
         // stocker le token en navigateur
-            .then(res => [localStorage.setItem("authToken", res.data.token), localStorage.setItem("userid", res.data.userId)])
+            .then(res => [localStorage.setItem("token", res.data.token), localStorage.setItem("userId", res.data.userId)])
             
         // implementer le header par defaut pour toute requette avec le méme token 
             axios.defaults.headers["Authorization"] = "Bearer" + token;
@@ -46,7 +46,7 @@ const handelSubmit = async event =>{
 
 
   return (
-    <div id="LoginForm" className="container">
+    <div id="LoginForm" className="container-fluid">
     <div className="login-form">
         <div className="main-div">
             <div className="panel">
@@ -67,7 +67,7 @@ const handelSubmit = async event =>{
 
                 </div>
                 <button type="submit" className="btn btn-primary">Login</button>
-                <Link to ={
+                <Link className="linkt" to ={
                             "/"
                 }> 
                 S'inscrire </Link>

@@ -1,6 +1,6 @@
 const Comments = require('../models').comments;
 
-// récupération du publication
+// creation du comm
 
 exports.createComments = (req, res) => {
   
@@ -13,8 +13,10 @@ exports.createComments = (req, res) => {
     
   Comments.create(newComment)
     .then(Comment => res.status(201).json( Comment ))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(400).json({error }));
 };
+
+
 
 exports.deleteComments = (req, res) => {
       // creation d'objet publication 

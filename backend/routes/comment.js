@@ -5,6 +5,7 @@ const auth = require('../middelware/auth');
 const comment = require('../controllers/comment')
 
 
+
 router.post('/',comment.createComments);
 router.delete('/:id',comment.deleteComments);
 

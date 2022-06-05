@@ -5,6 +5,7 @@ import { Link,useNavigate } from "react-router-dom";
 
 const FormSignup = () => {
     let navigate = useNavigate();
+
     const [user, setUser]=useState({
         firstName:"",
         lastName:"",
@@ -12,12 +13,19 @@ const FormSignup = () => {
         password: ""
     })
 
-    const [errors, setErrors]=useState({
-        firstName:"",
-        lastName:"",
-        email: "",
-        password: ""
-    })
+    const emailRef = React.useRef();
+    const passwordRef = React.useRef();
+
+    const [errormail, setErrormail]= useState("")
+    const [errorpass, setErrorpass]= useState("")
+
+
+    const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    
+    const regexPassword =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/ /* minimum 8 carractéres avec au moins un chiffre et une lettre en majiscule et un carrctére sepacial*/
+    let statusmail = false;
+    let statuspass = false;
+
     // Gestion de cahngement des inputs
     const handelChange = event =>{
         // recuèpérer le value du champ
@@ -32,57 +40,75 @@ const FormSignup = () => {
     const handelSubmit = async event =>{
         event.preventDefault();
         
-    try{
-        const response = await axios.post("http://localhost:3001/auth/signup", user)
-        console.log(response)
-    }
-    catch (error){
-        console.log(error.res)
-    }
-        console.log(user);
+        // verification d'email et password
+        if(regexEmail.test(user.email)){
+            statusmail=true;
+        }
+        else{
+            setErrormail("email incorrecte")
+         };
+        if((regexPassword.test(user.password))){
+            statuspass=true;
+        }
+        else{
+            setErrorpass("pass incorrecte")
+            console.log(user.password)
+        };
 
-    navigate('/homePage');
+        if(statusmail && statuspass === true ){
+                    
+            try{
+                const response = await axios.post("http://localhost:3001/auth/signup", user)
+                console.log(response)
+            }
+            catch (error){
+                console.log(error.res)
+            }
+                console.log(user);
+
+            navigate('/login');
+
+        }
     }
     
 
-
-
-  return (
-    <div id="LoginForm" className="container">
+return (
+<div id="LoginForm" className="container-fluid">
     <div className="login-form">
         <div className="main-div">
             <div className="panel">
+                <h1>Plateforme Groupomania</h1>
                 <h2>Inscrivez-vous</h2>
             </div>
             <form id="Signup" onSubmit={handelSubmit}>
                 <div className="form-group">
 
-                    <input type="text" className="form-control"  id="firstName" name="firstName" placeholder="Prénom" error={errors.firstName} value={user.firstName} onChange={handelChange}  />
+                    <input type="text" className="form-control"  id="firstName" name="firstName" placeholder="Prénom"  onChange={handelChange} required />
 
                 </div>
 
                 <div className="form-group">
 
-                    <input type="text" className="form-control"  id="lastName" name="lastName" placeholder="Nom" error={errors.lastName} value={user.lastName} onChange={handelChange}  />
+                    <input type="text" className="form-control"  id="lastName" name="lastName" placeholder="Nom"  onChange={handelChange}  required/>
                     
                 </div>
 
                 <div className="form-group">
 
-                    <input type="email" className="form-control"  id="inputEmail" name="email" placeholder="Email" error={errors.email} value={user.email} onChange={handelChange}  />
-                    
+                    <input type="email" className={"form-control" +(errormail && " is-invalid")}  ref={emailRef}  id="inputEmail" name="email" placeholder="Email"  onChange={handelChange}  required/>
+                    {errormail &&<p className='invalid-feedback'> {errormail} </p>}
                 </div>
 
                 <div className="form-group">
 
-                    <input type="password" className="form-control" id="inputPassword" name="password" placeholder="Mot de passe" error={errors.password} value={user.password} onChange={handelChange} autoComplete="off" />
-
+                    <input type="password" className={"form-control" +(errorpass && " is-invalid")} ref={passwordRef} id="inputPassword" name="password" placeholder="Mot de passe"  value={user.password} onChange={handelChange} autoComplete="off" required/>
+                    {errorpass &&<p className='invalid-feedback'> {errorpass} </p>}
                 </div>
                 <button type="submit" className="btn btn-primary">S'inscrire</button>
-                <Link to ={
+                <Link className="linkt" to ={
                             "/Login"
                 }> 
-                j'ai déja un compte </Link>
+                J'ai déja un compte </Link>
             </form>
         </div>
     </div>

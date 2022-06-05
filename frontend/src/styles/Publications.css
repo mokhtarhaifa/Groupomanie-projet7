@@ -13,6 +13,14 @@
     float: left;
     margin-right: 8px;
   }
+  .comm-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: right;
+    margin-top: -30px;
+  }
   .fb-clone-card {
     /*max-width: 500px;
     margin: auto;*/
@@ -34,6 +42,7 @@
   .fb-clone-card .fb-card-main-content .fb-card-header .user-post-info .user-information {
     float: left;
     line-height: 1.34;
+    
   }
   .fb-clone-card .fb-card-main-content .fb-card-header .user-post-info .user-information p {
     color: #385898;
@@ -41,7 +50,7 @@
     text-decoration: none;
     font-size: 14px;
     line-height: 1.38;
-    font-weight: 600;
+    font-weight: bold;
     margin: 0;
   }
   .fb-clone-card .fb-card-main-content .fb-card-header .user-post-info .user-information small {
@@ -147,7 +156,7 @@
     border-top: 1px solid #dadde1;
   }
   .fb-clone-card .fb-card-comments .comment-input-holder {
-    padding: 8px;
+    padding: 15px;
   }
   .fb-clone-card .fb-card-comments .comment-input-holder .user-thumb {
     width: 32px;
@@ -160,6 +169,7 @@
     display: flex;
     justify-content: flex-end;
     width: 90%;
+
   }
   .fb-clone-card .fb-card-comments .comment-input-holder .comment-input .comment-box {
     font-size: 13px;
@@ -235,4 +245,19 @@
 .dropdown-toggle::after {
     content: none;
     display: none;
+}
+
+
+.test{
+  border-radius: 50%;
+}
+.trash{
+  float: right
+}
+.comment-text{
+  margin-top: 20px;
+}
+.user-comment{
+  font-weight: bold;
+  color: #4E5166
 }
