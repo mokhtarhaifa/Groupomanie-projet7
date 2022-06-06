@@ -74,6 +74,10 @@ const FormSignup = () => {
 
 return (
 <div id="LoginForm" className="container-fluid">
+<div className="row">
+        <div className="col d-none d-md-block">
+			    </div>
+    <div className='col col-md-12 col-lg-4'>
     <div className="login-form">
         <div className="main-div">
             <div className="panel">
@@ -111,6 +115,10 @@ return (
                 J'ai déja un compte </Link>
             </form>
         </div>
+    </div>
+    </div>
+    <div className="col-4 d-none d-md-block">
+			    </div>
     </div>
 </div>	
 

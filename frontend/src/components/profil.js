@@ -110,7 +110,7 @@ const Profil = () => {
         <div className="container emp-profile">
                     <form >
                         <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-3 col-xs-12">
                                 <div className="profile-img">
                                 {userData.imgUrl ? (
                                                 <img src={userData.imgUrl} className="img-responsive"  alt="test2"/>
@@ -121,26 +121,22 @@ const Profil = () => {
                                 </div>
                             </div>
                              
-                            <div className="col-md-6">
+                            <div className="col col-md-6 col-xs-12 center">
                                 <div className="profile-head">
-                                            <h2> &Agrave; propos</h2>
-                                            <h5>
-                                            {userData.firstName} {userData.lastName}
-                                            </h5>
-                                            <h6>
-                                            {userData.email}
-                                            </h6>
+                                        <h2> &Agrave; propos</h2>
+                                        <h5> {userData.firstName} {userData.lastName}</h5>
+                                        <h6>{userData.email}</h6>
                                 </div>
                             </div>
                             
-                            <div className="col-md-2">
+                            <div className="col-md-3 col-xs-12 center">
                                 <input type="submit" className="profile-edit-btn" name="btnAddMore"data-bs-toggle="modal" data-bs-target="#exampleModal" value="Edit Profile" onClick={()=> getpubEdit()}/>
-                                
+                                {userId==28?(<></>):(
+                                    <input type="submit" className="profile-edit-btn blockDelete" value="delete Profile" onClick={() => deleteProfile()} />)}
                             </div>
                             
                         </div>
-                        {userId==28?(<></>):(
-                        <input type="submit" className="profile-edit-btn" value="delete Profile" onClick={() => deleteProfile()} />)}
+                        
                     </form>    
                     {/* // modal de modification de publication */}
 

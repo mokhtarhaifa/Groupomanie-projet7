@@ -168,7 +168,7 @@
     border-radius: 13px;
     display: flex;
     justify-content: flex-end;
-    width: 90%;
+    width: 80%;
 
   }
   .fb-clone-card .fb-card-comments .comment-input-holder .comment-input .comment-box {
@@ -252,7 +252,8 @@
   border-radius: 50%;
 }
 .trash{
-  float: right
+  float: right;
+  position:relative
 }
 .comment-text{
   margin-top: 20px;
@@ -260,4 +261,23 @@
 .user-comment{
   font-weight: bold;
   color: #4E5166
+}
+
+.test2{
+  background-color: red;
+}
+
+.imgStyle{
+  width:40px; height:40px
+}
+
+.blockimg{
+  padding: 0 !important;
+  border: 0px !important;
+}
+
+.blockIcon{
+background-color: #6C757D;
+color: white;
+height: 100%;
 }

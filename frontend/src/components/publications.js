@@ -43,16 +43,22 @@ const Publications = () => {
         formData.append('content', content);
         imgUrl && formData.append('image', imgUrl);
         formData.append('userId', userId);
-        axios
+        if(content.length != 0 || imgUrl){
+            axios
         .post("http://localhost:3001/publication", formData)
         .then(res => {
-            {updatepage()}
+            updatepage()
             contentShare.current.value=""
             inptfile.current.value=""
+            setContent("")
 	      })
 		  .catch(error => {
 	        console.log(error);
 	    })
+        }
+        else{
+            alert("vide")
+        }
 
     }
 
@@ -124,13 +130,17 @@ const Publications = () => {
         const comments={
             "userId":userId,
             "publicationId":pub,
-            "content":commentRef.current.value
+            "content":comment
         }
+        console.log(comments)
         axios
         .post("http://localhost:3001/comment", comments)
         .then(res => {
+            
             {updatepage()};
+            commentRef.current.value="";
             setComments("")
+            
 	      })
 		  .catch(error => {
 	        console.log(error);
@@ -176,7 +186,7 @@ const Publications = () => {
 		    <div className="row">
 			    <div className="col-3">
 			    </div>
-			    <div className="col-6">
+			    <div className="col col-md-12 col-lg-6">
                 <section className="card">
                     <div className="card-header">
                         <ul className="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -238,7 +248,7 @@ const Publications = () => {
                                     </div>  ):(<></>)} 
                                     
                                     </div>
-                                    {userId === 28 ? (<button type="button" className=" btn btn-primary"onClick={() => deleteUser(pub.user.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    {userId === 28 ? (<button type="button" className=" btn btn-primary"onClick={() => deleteUser(pub.user.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
                                     </svg></button>):(<></>)}
                                 </div>
@@ -265,25 +275,29 @@ const Publications = () => {
                             </div>
                             <div key={i} className="fb-card-comments">
                                 <div className="comment-input-holder">
-                                    <div className="user-thumb">
-                                    {pub.user.imgUrl ? (
-                                                <img src={pub.user.imgUrl} className="img-responsive"  alt="test2"/>
-                                            ):
-                                            (<img src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"className="img-responsive"  alt="test2"/>)
-                                            }
-                                    </div>
-                                    <div>
                                     
-                                        <input type='text' ref={commentRef} onChange={(e) => setComments(e.target.value)} placeholder='écrire un commentaire' className="comment-input"  />
-                                    </div>
-                                    <div className="comm-thumb">
-                                        <button type="button" className=" btn-primary test" onClick={() => shareCom(pub.id)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" className="bi bi-box-arrow-in-up-left" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd" d="M9.636 13.5a.5.5 0 0 1-.5.5H2.5A1.5 1.5 0 0 1 1 12.5v-10A1.5 1.5 0 0 1 2.5 1h10A1.5 1.5 0 0 1 14 2.5v6.636a.5.5 0 0 1-1 0V2.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
-                                                <path fillRule="evenodd" d="M5 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H6.707l8.147 8.146a.5.5 0 0 1-.708.708L6 6.707V10.5a.5.5 0 0 1-1 0v-5z"/>
+
+                                    <div className="input-group mb-3">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text blockimg" >
+
+                                            {pub.user.imgUrl ? (
+                                                <img src={pub.user.imgUrl} className="img-responsive imgStyle"  alt="test2" />
+                                            ):
+                                            (<img src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"className="img-responsive imgStyle"  alt="test2"/>)
+                                            }
+                                            </span>
+                                        </div>
+                                        <input type="text" className="form-control" ref={commentRef} onChange={(e) => setComments(e.target.value)} placeholder='écrire un commentaire' />
+                                        <div className="input-group-append">
+                                            <span className="input-group-text blockIcon" onClick={() => shareCom(pub.id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-send-fill" viewBox="0 0 16 16">
+                                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
                                             </svg>
-                                        </button>
+                                            </span>
+                                        </div>
                                     </div>
+
                                 </div>
                         </div>
                         
@@ -298,16 +312,17 @@ const Publications = () => {
                                             }
                                     
                                 </div>
-                                <p class="user-comment"> {comment.user.firstName} {comment.user.lastName}</p>
+                                <p className="user-comment"> {comment.user.firstName} {comment.user.lastName}</p>
                                 <div>
-                                    <p className=" comment-text text-start">{comment.content} </p> 
-                                    {comment.user.id === userId || userId === 26 ? (    
+                                {comment.user.id === userId || userId === 28 ? (    
                                     <a className='trash' onClick={() => deleteCommentaires(comment.id,i)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                             <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                         </svg>
                                     </a>):(<></>)}
+                                    <p className=" comment-text text-start">{comment.content} </p> 
+                                    
 
                                 </div>
                             </div>
