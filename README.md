@@ -1,9 +1,9 @@
 Projet Groupomania
 *********
 
-framework frontend JavaScrip utilisé : React.
+Framework frontend JavaScrip utilisé : React.
 
-utilisation MySQL pour la BDD, l'ORM choisi: Sequelize
+Pour la BDD : MySQL , l'ORM choisi: Sequelize.
 
 
 *********
