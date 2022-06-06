@@ -33,9 +33,9 @@ exports.getAllPublications= (req, res) => {
     Publications.findAll({
       // On y inclue les utilisateurs, likes et commentaires
       include: [
-          { model: Users, attributes: ['id', 'firstName', 'lastName', 'imgUrl'] },
+          { model: Users, attributes: ['id', 'firstName', 'lastName', 'imgUrl','adminRole'] },
           { model: Comments, include: [
-            { model: Users, attributes: ['id', 'firstName', 'lastName', 'imgUrl'] }
+            { model: Users, attributes: ['id', 'firstName', 'lastName', 'imgUrl' ,'adminRole'] }
           ]}
       ],
       order: [["id", "DESC"]],

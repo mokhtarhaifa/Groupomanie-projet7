@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 const Profil = () => {
     
     let navigate = useNavigate();
+    let status;
 
+    const adminRole = JSON.parse(localStorage.getItem('adminRole')) ;
     const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
+
     const [userData, setUserData] = useState(''); 
 
     const [email, setemail] = useState(''); 
@@ -27,10 +30,13 @@ const Profil = () => {
     const imgUrlRef = React.useRef();
     
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let status = false;
+    
 
     // Affichage des informations
-    const updatepage=() =>{axios.get("http://localhost:3001/user/" + userId )
+    const updatepage=() =>{axios.get("http://localhost:3001/user/" + userId , {headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }})
     .then(response => 
         setUserData(response.data)
     
@@ -43,7 +49,10 @@ const Profil = () => {
     
 
     const getpubEdit = () => {
-        axios.get("http://localhost:3001/user/" +userId)
+        axios.get("http://localhost:3001/user/" +userId ,{headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => {
             firsNRef.current.value=response.data.firstName;
             lastNRef.current.value=response.data.lastName;
@@ -69,8 +78,9 @@ const Profil = () => {
             "email":emailRef.current.value,
             "imgPath":imgUrlRef.current.value,
         }
-        
-            axios
+            if(regexEmail.test(emailRef.current.value)){
+               status = true
+                axios
                 .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro, {headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -84,10 +94,11 @@ const Profil = () => {
             .catch(error => {
             console.log(error);
             })
-            status=true;
-        
-            setError("email incorrecte")
-        
+            
+            }
+            else{
+                setError("email incorrecte")
+            }
             
             
         
@@ -133,7 +144,7 @@ const Profil = () => {
                             
                             <div className="col-md-3 col-xs-12 center">
                                 <input type="submit" className="profile-edit-btn" name="btnAddMore"data-bs-toggle="modal" data-bs-target="#exampleModal" value="Edit Profile" onClick={()=> getpubEdit()}/>
-                                {userId==28?(<></>):(
+                                {adminRole==1?(<></>):(
                                     <input type="submit" className="profile-edit-btn blockDelete" value="delete Profile" onClick={() => deleteProfile()} />)}
                             </div>
                             
@@ -154,14 +165,15 @@ const Profil = () => {
                                 <div className="modal-body">
                                     <input type="text" ref={firsNRef} onChange={(e) => setfirstName(e.target.value)}/>
                                     <input  type="text" ref={lastNRef} onChange={(e) => setlastName(e.target.value)}/>
-                                    <input  type="text" ref={emailRef} onChange={(e) => setemail(e.target.value)}/>
+                                    <input  type="text" pattern="[^@\s]+@[^@\s]+\.[^@\s]" ref={emailRef} onChange={(e) => setemail(e.target.value)}/>
                                     <input type="file" className= {error && " is-invalid"} onChange={(e) => setimgUrl(e.target.files[0])} />
                                     {error &&<p className='invalid-feedback'> {error} </p>}
                                     <img src='' ref={imgRef} className="img-responsive imgPublication"/>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    {status ==true ?(<button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updateProfil()}>Save changes</button>):(<button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => updateProfil()}>Save changes</button>) }
+                                    <button type="button" className="btn btn-primary"  onClick={() => updateProfil()}>Save changes false</button>
+                                    
                                     
                                 </div>
                             </div>

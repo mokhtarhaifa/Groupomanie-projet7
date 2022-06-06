@@ -1,6 +1,6 @@
 #LoginForm{ 
     background-image:url("../../public/img/imgbackground.jpg"); 
-    height: 1000px;
+    min-height: 1400px;
     background-position:center; 
     background-size:cover; 
     padding:10px; }

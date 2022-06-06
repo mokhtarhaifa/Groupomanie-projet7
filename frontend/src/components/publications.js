@@ -6,6 +6,7 @@ const Publications = () => {
     
     //Récuperation de user id du local storage 
     const userId = JSON.parse(localStorage.getItem('userId')) ;
+    const adminRole = JSON.parse(localStorage.getItem('adminRole')) ;
     const token = localStorage.getItem('token');
     // Déclation des variables d'etat
     const [publications, setPublications]=useState([])
@@ -26,14 +27,17 @@ const Publications = () => {
     const contentShare = React.useRef();
     const inptfile = React.useRef();
 
+    
+
+
     // fonction d'affichage des publications
 	const updatepage=() =>{
 		axios.get("http://localhost:3001/publication",{headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }})
-        .then(response => setPublications(response.data)
-		)
+        .then(response => {setPublications(response.data)
+    console.log(response.data)})
         .catch(error => console.log(error.response))
 	}
      useEffect(() => {
@@ -191,7 +195,10 @@ const Publications = () => {
     }
     const deleteUser = (pubuser) => {
         axios
-        .delete("http://localhost:3001/user/"+pubuser)
+        .delete("http://localhost:3001/user/"+pubuser,{headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => {
             console.log("supprimer!")
             {updatepage()}
@@ -255,7 +262,7 @@ const Publications = () => {
                                         </div>
                                     </div>
                                     <div className="post-action">
-                                    {pub.user.id === userId || userId === 28 ? (
+                                    {pub.user.id === userId ? (
                                     <div className="dropdown">
                                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             ...
@@ -267,9 +274,19 @@ const Publications = () => {
                                             
                                         </ul>
                                     </div>  ):(<></>)} 
+                                    {adminRole == 1? (<div className="dropdown">
+                                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            ...
+                                        </button>
+                                        
+                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a className="dropdown-item" onClick={() => handelDelete(pub.id)}>Supprimer</a></li>
+                                        </ul>
+                                    </div>):(<></>)
+                                    }
                                     
                                     </div>
-                                    {userId === 28 ? (<button type="button" className=" btn btn-primary"onClick={() => deleteUser(pub.user.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                                    {adminRole == 1 ? (<button type="button" className=" btn btn-primary"onClick={() => deleteUser(pub.user.id)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
                                     </svg></button>):(<></>)}
                                 </div>
@@ -335,7 +352,7 @@ const Publications = () => {
                                 </div>
                                 <p className="user-comment"> {comment.user.firstName} {comment.user.lastName}</p>
                                 <div>
-                                {comment.user.id === userId || userId === 28 ? (    
+                                {comment.user.id === userId || adminRole == 1 ? (    
                                     <a className='trash' onClick={() => deleteCommentaires(comment.id,i)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

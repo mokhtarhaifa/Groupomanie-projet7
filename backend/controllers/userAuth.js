@@ -38,6 +38,7 @@ exports.signup = (req, res) => {
             }
             res.status(200).json({
               userId: user.id,
+              adminRole: user.adminRole,
               //creation de token 
               token: jwt.sign(              
                 { userId: user._id },

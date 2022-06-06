@@ -29,7 +29,7 @@ const handelSubmit = async event =>{
     try{
         const token = await axios.post("http://localhost:3001/auth/login", credentials)
         // stocker le token en navigateur
-            .then(res => [localStorage.setItem("token", res.data.token), localStorage.setItem("userId", res.data.userId)])
+            .then(res => [localStorage.setItem("token", res.data.token), localStorage.setItem("userId", res.data.userId),localStorage.setItem("adminRole", res.data.adminRole)] )
             
         // implementer le header par defaut pour toute requette avec le méme token 
             axios.defaults.headers["Authorization"] = "Bearer" + token;
@@ -37,7 +37,7 @@ const handelSubmit = async event =>{
             
     }
     catch (error){
-        console.log(error.res)
+        console.log(error)
         setError("email incorrecte")
     }
 
