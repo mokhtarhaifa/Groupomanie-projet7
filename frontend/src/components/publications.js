@@ -6,7 +6,7 @@ const Publications = () => {
     
     //Récuperation de user id du local storage 
     const userId = JSON.parse(localStorage.getItem('userId')) ;
-    
+    const token = localStorage.getItem('token');
     // Déclation des variables d'etat
     const [publications, setPublications]=useState([])
     const [content, setContent] = useState('');
@@ -28,7 +28,10 @@ const Publications = () => {
 
     // fonction d'affichage des publications
 	const updatepage=() =>{
-		axios.get("http://localhost:3001/publication")
+		axios.get("http://localhost:3001/publication",{headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => setPublications(response.data)
 		)
         .catch(error => console.log(error.response))
@@ -45,7 +48,10 @@ const Publications = () => {
         formData.append('userId', userId);
         if(content.length != 0 || imgUrl){
             axios
-        .post("http://localhost:3001/publication", formData)
+        .post("http://localhost:3001/publication", formData ,{headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(res => {
             updatepage()
             contentShare.current.value=""
@@ -64,7 +70,10 @@ const Publications = () => {
 
     // Modification du publication
     const getpubEdit = (pub) => {
-        axios.get("http://localhost:3001/publication/" + pub)
+        axios.get("http://localhost:3001/publication/" + pub,{headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => {
             imgurlRef.current.value=response.data.imgUrl;
             imgRef.current.src=response.data.imgUrl;
@@ -92,7 +101,10 @@ const Publications = () => {
         
 
         axios
-        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms )
+        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms, {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }} )
         .then(res => {
             {updatepage()}
             
@@ -116,7 +128,10 @@ const Publications = () => {
 
         // approche pessimiste
         axios
-        .delete("http://localhost:3001/publication/" +id)
+        .delete("http://localhost:3001/publication/" +id , {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => console.log("ok"))
         .catch(error => {
             setPublications(originalPub);
@@ -134,7 +149,10 @@ const Publications = () => {
         }
         console.log(comments)
         axios
-        .post("http://localhost:3001/comment", comments)
+        .post("http://localhost:3001/comment", comments, {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(res => {
             
             {updatepage()};
@@ -159,7 +177,10 @@ const Publications = () => {
 
     // approche pessimiste
     axios
-    .delete("http://localhost:3001/comment/" +id)
+    .delete("http://localhost:3001/comment/" +id, {headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }})
     .then(response => {{updatepage()};
             setComments("")
     })

@@ -11,7 +11,7 @@ const Profil = () => {
     let navigate = useNavigate();
 
     const userId = JSON.parse(localStorage.getItem('userId'));
-    const token = localStorage.getItem('Token');
+    const token = localStorage.getItem('token');
     const [userData, setUserData] = useState(''); 
 
     const [email, setemail] = useState(''); 
@@ -71,7 +71,10 @@ const Profil = () => {
         }
         
             axios
-                .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro, axios.defaults.headers['Authorization'] = "Bearer" + token  )
+                .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro, {headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                  }}  )
                 .then(res => {
                     setError("");
                     updatepage();
