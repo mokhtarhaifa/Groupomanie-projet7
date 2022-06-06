@@ -69,9 +69,9 @@ const Profil = () => {
             "email":emailRef.current.value,
             "imgPath":imgUrlRef.current.value,
         }
-        if(regexEmail.test(email)){
+        
             axios
-                .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro )
+                .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro, axios.defaults.headers['Authorization'] = "Bearer" + token  )
                 .then(res => {
                     setError("");
                     updatepage();
@@ -82,10 +82,9 @@ const Profil = () => {
             console.log(error);
             })
             status=true;
-        }
-        else{
+        
             setError("email incorrecte")
-        }
+        
             
             
         

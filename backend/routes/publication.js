@@ -6,7 +6,7 @@ const auth = require('../middelware/auth');
 
 router.get('/:id',publication.getOnePublications);
 
-router.get('/',publication.getAllPublications);
+router.get('/',auth,publication.getAllPublications);
 
 router.post('/',multer,publication.createPublication);
 
