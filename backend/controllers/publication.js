@@ -87,21 +87,6 @@ exports.deletePublication = (req, res) => {
       res.sendStatus(200);
   });
 };
-// like et dislike du publication
-exports.likeDislikePublication = (req, res) => {
-  // creation d'objet publication 
-  const newPublication ={
-    likes : req.body.likes,
-    dislikes: req.body.dislikes
-  }
-  Publications.findOne(
-    { where: { id: req.params.id } })
-  .then(function (pub) {
-    return pub.update(newPublication);
-  }).then(function (pub) {
-      res.sendStatus(200);
-  });
-};
   exports.getOnePublications = (req, res) => {
     
     Publications.findOne(

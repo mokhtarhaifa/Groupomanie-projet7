@@ -99,10 +99,6 @@ const Profil = () => {
             else{
                 setError("email incorrecte")
             }
-            
-            
-        
-
     }
     
     // delete profil

@@ -88,7 +88,6 @@ const Publications = () => {
     }
 
     const updateposts = () => {
-
         const idpub=idpubRef.current.value;
         
             let formDataedit = new FormData();
@@ -97,15 +96,15 @@ const Publications = () => {
             formDataedit.append('image', imgUrledit);
         
             let coms={
-                "userId":userId,
                 "imgPath":imgurlRef.current.value,
-                "content":contentRef.current.value
+                "content":contentRef.current.value,
             }
         axios
-        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms,{headers: {
+        .put("http://localhost:3001/publication/" + idpub, imgUrledit != null ? formDataedit : coms, {headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-          }} )
+            }}  )
+          
         .then(res => {
             {updatepage()}
             console.log(res);
@@ -115,7 +114,7 @@ const Publications = () => {
         })
 
     }   
-
+              
     //  supperssion de publication
     const handelDelete = (id) => {
 
@@ -129,8 +128,9 @@ const Publications = () => {
         axios
         .delete("http://localhost:3001/publication/" +id , {headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }})
+            'Content-Type': 'application/json'
+          }}
+          )
         .then(response => console.log("ok"))
         .catch(error => {
             setPublications(originalPub);
