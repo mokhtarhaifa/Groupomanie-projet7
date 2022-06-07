@@ -74,7 +74,7 @@ const Publications = () => {
 
     // Modification du publication
     const getpubEdit = (pub) => {
-        axios.get("http://localhost:3001/publication/" + pub,{headers: {
+        axios.get("http://localhost:3001/publication/" + pub ,{headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }})
@@ -101,18 +101,13 @@ const Publications = () => {
                 "imgPath":imgurlRef.current.value,
                 "content":contentRef.current.value
             }
-        
-        
-
         axios
-        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms, {headers: {
+        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms,{headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }} )
         .then(res => {
             {updatepage()}
-            
-
             console.log(res);
         })
         .catch(error => {
@@ -228,7 +223,7 @@ const Publications = () => {
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div className="form-group">
-                                    <textarea id="name" ref={contentShare} className="form-control"  rows="3"  onChange={(e) => setContent(e.target.value)}> </textarea>
+                                    <textarea id="name" ref={contentShare} className="form-control"  rows="3"  onChange={(e) => setContent(e.target.value)}/> 
                                 </div>
 
                             </div>
@@ -307,7 +302,7 @@ const Publications = () => {
                             <div className="fb-card-actions-holder">
                                 <div className="fb-card-actions">
                                     <div className="fb-btn-holder">
-                                        <a href="/#"><i className="far fa-comment-alt"></i> Commenter</a>
+                                        <a href=""><i className="far fa-comment-alt"></i> Commenter</a>
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +387,7 @@ const Publications = () => {
                         <input type="hidden" ref={idpubRef}></input>
                         <input type="hidden" ref={imgurlRef}></input>
                         <div className="modal-body">
-                            <textarea id="name" ref={contentRef} className="form-control"  rows="3"  onChange={(e) => setContentedit(e.target.value)}> </textarea>
+                            <textarea id="name" ref={contentRef} className="form-control"  rows="3"  onChange={(e) => setContentedit(e.target.value)}/> 
                             <input type="file" onChange={(e) => setimgUrledit(e.target.files[0])} />
                             <img src=''ref={imgRef}className="img-responsive imgPublication"/>
                         </div>

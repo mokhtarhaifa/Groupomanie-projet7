@@ -67,7 +67,13 @@ exports.modifyPublication = (req, res) => {
     return pub.update(newPublication);
   }).then(function (pub) {
       res.sendStatus(200);
-  });
+  }).catch(
+    (error) => {
+      res.status(400).json({
+        error: error
+      });
+    }
+  );
 };
 // suppression publication
 exports.deletePublication = (req, res) => {

@@ -86,7 +86,7 @@ const Profil = () => {
                     'Content-Type': 'application/json',
                   }}  )
                 .then(res => {
-                    setError("");
+                    setError("vos informations ont été bien enregistrées");
                     updatepage();
                     console.log(res);
              
@@ -108,7 +108,10 @@ const Profil = () => {
     // delete profil
      const deleteProfile = () => {
         axios
-        .delete("http://localhost:3001/user/"+userId)
+        .delete("http://localhost:3001/user/"+userId, {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => {
             localStorage.clear();
             navigate("/")
