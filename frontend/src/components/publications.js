@@ -131,7 +131,7 @@ const Publications = () => {
             'Content-Type': 'application/json'
           }}
           )
-        .then(response => console.log("ok"))
+        .then(response => console.log("publication supprimer"))
         .catch(error => {
             setPublications(originalPub);
             console.log(error.response);

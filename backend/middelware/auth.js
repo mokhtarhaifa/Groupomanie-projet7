@@ -13,7 +13,6 @@ module.exports = (req, res, next) => {
     
     //verification de correspandance du token à l'utulisateur authentifier
     if (req.body.userId && req.body.userId !== userId) {
-      
       throw 'Invalid user ID';
     } else {
       next();

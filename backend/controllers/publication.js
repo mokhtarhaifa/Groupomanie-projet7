@@ -64,7 +64,14 @@ exports.modifyPublication = (req, res) => {
   Publications.findOne(
     { where: { id: req.params.id } })
   .then(function (pub) {
+    if(req.auth.userId == pub.userId){
+      console.log("vous n'avez pas le droit de modifier cette publication");
+      return pub
+  }
+  else{
     return pub.update(newPublication);
+  }
+    
   }).then(function (pub) {
       res.sendStatus(200);
   }).catch(
@@ -81,11 +88,19 @@ exports.deletePublication = (req, res) => {
   
   Publications.findOne(
     { where: { id: req.params.id } })
+    .then(function (pub) {
+      if(req.auth.userId == pub.userId){
+        console.log("vous n'avez pas le droit de supprimer cette publication");
+        return pub
+    }
+    else{
+      return pub.destroy();
+    }
+  })
   .then(function (pub) {
-    return pub.destroy();
-  }).then(function (pub) {
       res.sendStatus(200);
   });
+  
 };
   exports.getOnePublications = (req, res) => {
     
