@@ -86,7 +86,7 @@ const Profil = () => {
                     'Content-Type': 'application/json',
                   }}  )
                 .then(res => {
-                    setError("");
+                    setError("vos modifications ont été bien enregistrées");
                     updatepage();
                     console.log(res);
              
@@ -99,19 +99,18 @@ const Profil = () => {
             else{
                 setError("email incorrecte")
             }
-            
-            
-        
-
     }
     
     // delete profil
      const deleteProfile = () => {
         axios
-        .delete("http://localhost:3001/user/"+userId)
+        .delete("http://localhost:3001/user/"+userId, {headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }})
         .then(response => {
             localStorage.clear();
-            navigate("/")
+            navigate('/login'); 
         })
         .catch(error => {
             console.log(error.response);
@@ -125,10 +124,10 @@ const Profil = () => {
                         <div className="row">
                             <div className="col-md-3 col-xs-12">
                                 <div className="profile-img">
-                                {userData.imgUrl ? (
-                                                <img src={userData.imgUrl} className="img-responsive"  alt="test2"/>
+                                {userData && userData.imgUrl ? (
+                                                <img src={userData.imgUrl} className="img-responsive"  alt="img profile"/>
                                             ):
-                                            (<img src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"className="img-responsive"  alt="test2"/>)
+                                            (<img src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"className="img-responsive"  alt="img profile"/>)
                                             }
                                     
                                 </div>
@@ -137,8 +136,8 @@ const Profil = () => {
                             <div className="col col-md-6 col-xs-12 center">
                                 <div className="profile-head">
                                         <h2> &Agrave; propos</h2>
-                                        <h5> {userData.firstName} {userData.lastName}</h5>
-                                        <h6>{userData.email}</h6>
+                                        <h5> {userData && userData.firstName} {userData && userData.lastName}</h5>
+                                        <h6>{userData && userData.email}</h6>
                                 </div>
                             </div>
                             

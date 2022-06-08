@@ -97,13 +97,10 @@ const Publications = () => {
             formDataedit.append('image', imgUrledit);
         
             let coms={
-                "userId":userId,
                 "imgPath":imgurlRef.current.value,
                 "content":contentRef.current.value
             }
         
-        
-
         axios
         .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms, {headers: {
             Authorization: `Bearer ${token}`,
@@ -158,9 +155,8 @@ const Publications = () => {
             'Content-Type': 'application/json',
           }})
         .then(res => {
-            
-            {updatepage()};
             commentRef.current.value="";
+            updatepage();
             setComments("")
             
 	      })
@@ -228,7 +224,7 @@ const Publications = () => {
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div className="form-group">
-                                    <textarea id="name" ref={contentShare} className="form-control"  rows="3"  onChange={(e) => setContent(e.target.value)}> </textarea>
+                                    <textarea id="name" ref={contentShare} className="form-control"  rows="3"  onChange={(e) => setContent(e.target.value)}/> 
                                 </div>
 
                             </div>
@@ -307,7 +303,7 @@ const Publications = () => {
                             <div className="fb-card-actions-holder">
                                 <div className="fb-card-actions">
                                     <div className="fb-btn-holder">
-                                        <a href="/#"><i className="far fa-comment-alt"></i> Commenter</a>
+                                        <a href="#text-content"><i className="far fa-comment-alt"></i> Commenter</a>
                                     </div>
                                 </div>
                             </div>
@@ -359,7 +355,7 @@ const Publications = () => {
                                             <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                         </svg>
                                     </a>):(<></>)}
-                                    <p className=" comment-text text-start">{comment.content} </p> 
+                                    <p id="text-content" className="comment-text text-start">{comment.content} </p> 
                                     
 
                                 </div>
@@ -392,7 +388,7 @@ const Publications = () => {
                         <input type="hidden" ref={idpubRef}></input>
                         <input type="hidden" ref={imgurlRef}></input>
                         <div className="modal-body">
-                            <textarea id="name" ref={contentRef} className="form-control"  rows="3"  onChange={(e) => setContentedit(e.target.value)}> </textarea>
+                            <textarea id="name" ref={contentRef} className="form-control"  rows="3"  onChange={(e) => setContentedit(e.target.value)}/> 
                             <input type="file" onChange={(e) => setimgUrledit(e.target.files[0])} />
                             <img src=''ref={imgRef}className="img-responsive imgPublication"/>
                         </div>
