@@ -74,7 +74,7 @@ const Publications = () => {
 
     // Modification du publication
     const getpubEdit = (pub) => {
-        axios.get("http://localhost:3001/publication/" + pub,{headers: {
+        axios.get("http://localhost:3001/publication/" + pub ,{headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }})
@@ -88,7 +88,6 @@ const Publications = () => {
     }
 
     const updateposts = () => {
-
         const idpub=idpubRef.current.value;
         
             let formDataedit = new FormData();
@@ -98,18 +97,16 @@ const Publications = () => {
         
             let coms={
                 "imgPath":imgurlRef.current.value,
-                "content":contentRef.current.value
+                "content":contentRef.current.value,
             }
-        
         axios
-        .put("http://localhost:3001/publication/"+idpub, imgUrledit !=null ? formDataedit : coms, {headers: {
+        .put("http://localhost:3001/publication/" + idpub, imgUrledit != null ? formDataedit : coms, {headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
-          }} )
+            }}  )
+          
         .then(res => {
             {updatepage()}
-            
-
             console.log(res);
         })
         .catch(error => {
@@ -117,7 +114,7 @@ const Publications = () => {
         })
 
     }   
-
+              
     //  supperssion de publication
     const handelDelete = (id) => {
 
@@ -131,9 +128,10 @@ const Publications = () => {
         axios
         .delete("http://localhost:3001/publication/" +id , {headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }})
-        .then(response => console.log("ok"))
+            'Content-Type': 'application/json'
+          }}
+          )
+        .then(response => console.log("publication supprimer"))
         .catch(error => {
             setPublications(originalPub);
             console.log(error.response);
@@ -303,7 +301,7 @@ const Publications = () => {
                             <div className="fb-card-actions-holder">
                                 <div className="fb-card-actions">
                                     <div className="fb-btn-holder">
-                                        <a href="#text-content"><i className="far fa-comment-alt"></i> Commenter</a>
+                                        <a href=""><i className="far fa-comment-alt"></i> Commenter</a>
                                     </div>
                                 </div>
                             </div>

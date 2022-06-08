@@ -34,14 +34,11 @@ const handelSubmit = async event =>{
         // implementer le header par defaut pour toute requette avec le méme token 
             axios.defaults.headers["Authorization"] = "Bearer" + token;
             navigate('/homePage');
-            
     }
     catch (error){
         console.log(error)
         setError("Email ou mot de passe inccorecte")
     }
-
-    
 }
 
 
@@ -60,9 +57,8 @@ const handelSubmit = async event =>{
             <form id="Login" onSubmit={handelSubmit}>
 
                 <div className="form-group">
-
-
                     <input type="email" className="form-control"  id="inputEmail" name="email" placeholder="Email" value={credentials.email} onChange={handelChange} required />
+
                     
                 </div>
 
@@ -71,6 +67,7 @@ const handelSubmit = async event =>{
                     <input type="password" className={"form-control" +(error && " is-invalid")} id="inputPassword" name="password" placeholder="Mot de passe" onChange={handelChange} value={credentials.password} autoComplete="off" required />
                     {error &&<p className='invalid-feedback'> {error} </p>}
                 </div>
+                
                 <button type="submit" className="btn btn-primary">Login</button>
                 <Link className="linkt" to ={
                             "/"

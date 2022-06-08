@@ -20,7 +20,6 @@ exports.createComments = (req, res) => {
 
 exports.deleteComments = (req, res) => {
       // creation d'objet publication 
-      
       Comments.findOne(
         { where: { id: req.params.id } })
       .then(function (comm) {

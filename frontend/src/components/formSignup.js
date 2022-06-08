@@ -45,13 +45,13 @@ const FormSignup = () => {
             statusmail=true;
         }
         else{
-            setErrormail("entrez un mail valide")
+            setErrormail("l'email est invalide")
          };
         if((regexPassword.test(user.password))){
             statuspass=true;
         }
         else{
-            setErrorpass("Le password doit contenire au moins 8 carractéres dont au moins un chiffre, une lettre en majiscule et un carrctére sepacial")
+            setErrorpass("Le mot de passe doit contenire au moins 8 carractéres dont au moins un chiffre, une lettre en majiscule et un carrctére sepacial")
             console.log(user.password)
         };
 
