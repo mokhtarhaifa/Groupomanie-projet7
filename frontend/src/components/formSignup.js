@@ -54,6 +54,7 @@ const FormSignup = () => {
             setErrorpass("Le mot de passe doit contenire au moins 8 carractéres dont au moins un chiffre, une lettre en majiscule et un carrctére sepacial")
             console.log(user.password)
         };
+        
 
         if(statusmail && statuspass === true ){
                     
@@ -63,6 +64,7 @@ const FormSignup = () => {
             }
             catch (error){
                 console.log(error.res)
+                setErrormail("l'email doit étre unique")
             }
                 console.log(user);
 

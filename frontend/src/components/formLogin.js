@@ -35,9 +35,16 @@ const handelSubmit = async event =>{
             axios.defaults.headers["Authorization"] = "Bearer" + token;
             navigate('/homePage');
     }
-    catch (error){
-        console.log(error)
-        setError("Email ou mot de passe inccorecte")
+    catch (req){
+        console.log(req)
+        console.log(req.response.data)
+        if(req.response.data.error == "Mot de passe incorrect !" || req.response.data.error == "Utilisateur non trouvé !"){
+            setError("email ou mot de passe incorrecte")
+        }
+        else if(req.response.data == 'Plusieurs tentatives de connexion ont échoué, vous êtes bloquées pendant quelques minutes'){
+            setError("vous êtes bloquées pendant quelques minutes")
+        }
+        
     }
 }
 

@@ -79,7 +79,6 @@ const Profil = () => {
             "imgPath":imgUrlRef.current.value,
         }
             if(regexEmail.test(emailRef.current.value)){
-               status = true
                 axios
                 .put("http://localhost:3001/user/"+userId, imgUrl !=null ? formDataedit : pro, {headers: {
                     Authorization: `Bearer ${token}`,
@@ -90,12 +89,7 @@ const Profil = () => {
                     updatepage();
                     console.log(res);
              
-             })
-            .catch(error => {
-            console.log(error);
-            })
-            
-            }
+             })}
             else{
                 setError("email incorrecte")
             }
@@ -108,51 +102,20 @@ const Profil = () => {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }})
-        .then(response => {
-            localStorage.clear();
-            navigate('/login'); 
+        .then(res => {
+            localStorage.clear(); 
+            navigate('/') 
         })
+        
         .catch(error => {
             console.log(error.response);
         })
-        
     }   
 
     return (
+        
         <div className="container emp-profile">
-                    <form >
-                        <div className="row">
-                            <div className="col-md-3 col-xs-12">
-                                <div className="profile-img">
-                                {userData && userData.imgUrl ? (
-                                                <img src={userData.imgUrl} className="img-responsive"  alt="img profile"/>
-                                            ):
-                                            (<img src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"className="img-responsive"  alt="img profile"/>)
-                                            }
-                                    
-                                </div>
-                            </div>
-                             
-                            <div className="col col-md-6 col-xs-12 center">
-                                <div className="profile-head">
-                                        <h2> &Agrave; propos</h2>
-                                        <h5> {userData && userData.firstName} {userData && userData.lastName}</h5>
-                                        <h6>{userData && userData.email}</h6>
-                                </div>
-                            </div>
-                            
-                            <div className="col-md-3 col-xs-12 center">
-                                <input type="submit" className="profile-edit-btn" name="btnAddMore"data-bs-toggle="modal" data-bs-target="#exampleModal" value="Edit Profile" onClick={()=> getpubEdit()}/>
-                                {adminRole==1?(<></>):(
-                                    <input type="submit" className="profile-edit-btn blockDelete" value="delete Profile" onClick={() => deleteProfile()} />)}
-                            </div>
-                            
-                        </div>
-                        
-                    </form>    
-                    {/* // modal de modification de publication */}
-
-                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -177,7 +140,50 @@ const Profil = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>       
+                    </div>
+
+
+
+                    <form >
+                        <div className="row">
+                            <div className="col-md-3 col-xs-12">
+                                <div className="profile-img">
+                                {userData && userData.imgUrl ? (
+                                    <img
+                                        className="img-responsive"
+                                        alt="img profile"
+                                        src={userData.imgUrl} 
+                                    ></img>
+                                    ) : (
+                                    <img
+                                        className="img-responsive"
+                                        alt="img profile"
+                                        src="https://lesexpertsdurecouvrement.com/wp-content/uploads/2015/11/default-avatar.jpg"
+                                    ></img>
+                                )}    
+                                </div>
+                            </div>
+                             
+                            <div className="col col-md-6 col-xs-12 center">
+                                <div className="profile-head">
+                                        <h2> &Agrave; propos</h2>
+                                        <h5> {userData && userData.firstName} {userData && userData.lastName}</h5>
+                                        <h6>{userData && userData.email}</h6>
+                                </div>
+                            </div>
+                            
+                            <div className="col-md-3 col-xs-12 center">
+                                <input type="button" className="profile-edit-btn" name="btnAddMore" data-bs-toggle="modal" data-bs-target="#exampleModal1" value="Edit Profile" onClick={()=> getpubEdit()}/>
+                                {adminRole==1?(<></>):(
+                                    <input type="button" className="profile-edit-btn blockDelete" value="delete Profile" onClick={() => deleteProfile()} />)}
+                            </div>
+                            
+                        </div>
+                        
+                    </form>    
+                    {/* // modal de modification de publication */}
+
+                           
         </div>
     )}
   

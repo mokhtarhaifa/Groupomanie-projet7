@@ -7,6 +7,6 @@ const validPwd = require('../middelware/validatePassword');
 const connexion = require('../middelware/limitConnexion');
 
 router.post('/signup', validMail,validPwd,userAuth.signup);
-router.post('/login',  userAuth.login);
+router.post('/login', connexion, userAuth.login);
 
 module.exports = router;
