@@ -89,7 +89,7 @@ exports.deletePublication = (req, res) => {
   Publications.findOne(
     { where: { id: req.params.id } })
     .then(function (pub) {
-      if(req.auth.userId == pub.userId){
+      if(req.auth.userId !== pub.userId){
         console.log("vous n'avez pas le droit de supprimer cette publication");
         return pub
     }

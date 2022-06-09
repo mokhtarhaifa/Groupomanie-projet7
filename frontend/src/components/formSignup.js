@@ -61,16 +61,15 @@ const FormSignup = () => {
             try{
                 const response = await axios.post("http://localhost:3001/auth/signup", user)
                 console.log(response)
+                navigate('/login');
             }
             catch (error){
                 console.log(error.res)
                 setErrormail("l'email doit étre unique")
             }
                 console.log(user);
-
-            navigate('/login');
-
         }
+        
     }
     
 

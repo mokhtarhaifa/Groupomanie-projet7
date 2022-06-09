@@ -97,14 +97,13 @@ const Publications = () => {
         
             let coms={
                 "imgPath":imgurlRef.current.value,
-                "content":contentRef.current.value,
+                "content":contentRef.current.value
             }
         axios
         .put("http://localhost:3001/publication/" + idpub, imgUrledit != null ? formDataedit : coms, {headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
             }}  )
-          
         .then(res => {
             {updatepage()}
             console.log(res);
@@ -125,17 +124,26 @@ const Publications = () => {
         setPublications(publications.filter(publication => publication.id !== id))
 
         // approche pessimiste
-        axios
-        .delete("http://localhost:3001/publication/" +id , {headers: {
+        
+        if(window.confirm("Voulez vous vraiment supprimer cette publication")){
+            axios.delete("http://localhost:3001/publication/" +id , {headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
-          }}
-          )
-        .then(response => console.log("publication supprimer"))
-        .catch(error => {
+            }}
+            )
+            .then(response => console.log("publication supprimer"))
+            .catch(error => {
+                setPublications(originalPub);
+                console.log(error.response);
+            })
+            alert('Supression effectuer');
+
+         }
+        else{
+            alert('Suppression annulée');
             setPublications(originalPub);
-            console.log(error.response);
-        })
+        }
+        
 	}
 
 
@@ -174,21 +182,29 @@ const Publications = () => {
     setComments(originalPub[countPub].comments.filter(commentaire => commentaire.id !== id))
 
     // approche pessimiste
-    axios
-    .delete("http://localhost:3001/comment/" +id, {headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }})
-    .then(response => {{updatepage()};
-            setComments("")
-    })
-    .catch(error => {
-        
-        console.log(error.response);
-    })
+    if(window.confirm("Voulez vous vraiment supprimer cette publication")){
+        axios
+            .delete("http://localhost:3001/comment/" +id, {headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }})
+            .then(response => {{updatepage()};
+                    setComments("")
+            })
+            .catch(error => {
+                
+                console.log(error.response);
+            })
+        alert('Supression effectuer');
+     }
+    else{
+        alert('Suppression annulée');
+    }
+    
     }
     const deleteUser = (pubuser) => {
-        axios
+        if(window.confirm("Voulez vous vraiment supprimer ce compt ? ")){
+            axios
         .delete("http://localhost:3001/user/"+pubuser,{headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -200,6 +216,12 @@ const Publications = () => {
         .catch(error => {
             console.log(error.response);
         })
+         }
+        else{
+            alert('Suppression annulée');
+        }
+
+        
     }
     
 

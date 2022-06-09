@@ -97,19 +97,27 @@ const Profil = () => {
     
     // delete profil
      const deleteProfile = () => {
-        axios
-        .delete("http://localhost:3001/user/"+userId, {headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }})
-        .then(res => {
-            localStorage.clear(); 
-            navigate('/') 
-        })
-        
-        .catch(error => {
-            console.log(error.response);
-        })
+        if(window.confirm("Voulez vous vraiment supprimer votre compt?"))
+        {   axios
+            .delete("http://localhost:3001/user/"+userId, {headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            }})
+            .then(res => {
+                localStorage.clear(); 
+                navigate('/') 
+            })
+            
+            .catch(error => {
+                console.log(error.response);
+            })
+            alert('Supression effectuer');
+        }
+        else
+        {
+            alert('Suppression annulée');
+        }
+            
     }   
 
     return (

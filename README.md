@@ -23,3 +23,5 @@ cd backend
 npm install
 
 nodemon server
+
+!! Vous devez creer un dossier images sous la repertoire backend
